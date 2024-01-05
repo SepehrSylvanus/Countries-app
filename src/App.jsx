@@ -5,8 +5,8 @@ import {
   RouterProvider,
 } from "react-router-dom";
 import MainPage from "./pages/MainPage";
-import EachCountry from "./pages/eachCountry/EachCountry";
-import AllCountries from "./pages/allCountries/AllCountries";
+import EachCountry from "./pages/eachCountry/EachCountry.tsx";
+import AllCountries from "./pages/allCountries/AllCountries.tsx";
 
 function App() {
 

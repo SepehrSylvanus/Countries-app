@@ -1,6 +1,6 @@
 import React from "react";
 import { Outlet, useLocation } from "react-router-dom";
-import AllCountries from "./allCountries/AllCountries";
+import AllCountries from "./allCountries/AllCountries.tsx";
 
 const MainPage = () => {
   const location = useLocation();
@@ -8,7 +8,7 @@ const MainPage = () => {
   const themeChanger = () => {
     const currentTheme = document.documentElement.getAttribute("data-theme");
 
-    if (currentTheme == "dark") {
+    if (currentTheme === "dark") {
       document.documentElement.setAttribute("data-theme", "light");
     } else {
       document.documentElement.setAttribute("data-theme", "dark");

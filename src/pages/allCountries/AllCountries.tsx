@@ -1,23 +1,23 @@
 import React from "react";
-import { useEffect, useState } from "react";
+import {  useState } from "react";
 import { Link } from "react-router-dom";
 import styles from "./AllCountries.module.css";
 import { Skeleton } from "@mui/material";
+import { useQuery } from "@tanstack/react-query";
 
 const AllCountries = () => {
-  const [countries, setCountries] = useState(null);
+
   const [search, setSearch] = useState("");
   const [region, setRegion] = useState("");
-  const [loading, setLoading] = useState(true)
-  useEffect(() => {
-    fetch("https://restcountries.com/v3.1/all")
-      .then((res) => res.json())
-      .then((data) => {
-        setCountries(data);
-        console.log(data);
-        setLoading(false)
-      });
-  }, []);
+ 
+  
+  const { isLoading,  data: countryData } = useQuery({
+    queryKey: ['countries'],
+    queryFn: () =>
+      fetch('https://restcountries.com/v3.1/all').then((res) =>
+        res.json()
+      ),
+  })
 
   const handleChange = (e) => {
     setSearch(e.target.value);
@@ -26,7 +26,7 @@ const AllCountries = () => {
     setRegion(e.target.value);
   };
 
-if(loading){
+if(isLoading){
  return (
   <>
   <div className={styles.filter}>
@@ -71,7 +71,7 @@ if(loading){
 }
 
 
-  if(!loading){
+  if(!isLoading){
     return (
       <>
         <div className={styles.filter}>
@@ -102,8 +102,8 @@ if(loading){
           </select>
         </div>
         <div id={styles.countryContainer} className={styles.countryContainer}>
-          {countries &&
-            countries
+          {countryData &&
+            countryData
               .filter((item) => {
                 const nameMatch = item.name.common.toLowerCase().includes(search);
   
